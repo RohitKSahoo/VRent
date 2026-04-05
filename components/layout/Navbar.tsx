@@ -1,34 +1,39 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { Sparkles } from 'lucide-react';
 
 export const Navbar = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-[#e5e7eb] px-4 md:px-6 h-16 flex items-center justify-between">
-      <div className="max-w-6xl mx-auto w-full flex items-center justify-between">
-        <Link href="/" className="text-2xl font-bold tracking-tighter text-[#0f172a]">
-          VRent
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b-4 border-black px-4 md:px-8 h-18 flex items-center">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-10 h-10 bg-vrent-pink border-2 border-black flex items-center justify-center neo-shadow transition-all group-hover:translate-x-1 group-hover:translate-y-1 group-hover:shadow-none">
+            <Sparkles className="w-6 h-6 text-white" />
+          </div>
+          <span className="text-2xl font-black lowercase tracking-tighter text-black">
+            VRent<span className="text-vrent-pink">.</span>
+          </span>
         </Link>
 
-        {/* Desktop nav links */}
-        <div className="hidden md:flex items-center space-x-8">
-          <Link href="/vehicles" className="text-sm font-medium text-[#64748b] hover:text-[#0f172a] transition-colors">
-            Browse
+        {/* Links */}
+        <div className="hidden md:flex items-center space-x-10">
+          <Link href="/vehicles" className="text-sm font-bold uppercase tracking-widest hover:text-vrent-pink transition-colors">
+            01. Browse
           </Link>
-          <Link href="/vendor" className="text-sm font-medium text-[#64748b] hover:text-[#0f172a] transition-colors">
-            Vendor Panel
+          <Link href="/vendor" className="text-sm font-bold uppercase tracking-widest hover:text-vrent-pink transition-colors">
+            02. Studio
           </Link>
         </div>
 
-        {/* Desktop CTA only */}
-        <div className="hidden md:flex items-center space-x-4">
+        {/* Action Button */}
+        <div className="flex items-center">
           <Link href="/vehicles">
-            <Button className="rounded-2xl bg-[#0f172a] text-white hover:bg-[#0f172a]/90 h-10 px-6">
-              Explore
+            <Button className="bg-vrent-yellow text-black border-2 border-black rounded-none h-11 px-6 font-bold uppercase neo-shadow hover:neo-shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+              GO!
             </Button>
           </Link>
         </div>
-
-        {/* Mobile: just the brand, bottom nav handles navigation */}
       </div>
     </nav>
   );

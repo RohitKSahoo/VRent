@@ -1,59 +1,86 @@
 'use client';
 
+import { Vehicle } from '@/data/mockData';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Vehicle } from '@/types';
+import { Sparkles, ArrowUpRight, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-interface VehicleCardProps {
-  vehicle: Vehicle;
-}
-
-export const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+export const VehicleCard = ({ vehicle }: { vehicle: Vehicle }) => {
   return (
     <motion.div
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.2 }}
+      whileHover={{ y: -8, rotate: Math.random() * 2 - 1 }}
+      className="relative group"
     >
-      <Link href={`/vehicles/${vehicle.id}`}>
-        <Card className="overflow-hidden border-[#e5e7eb] rounded-3xl group cursor-pointer shadow-sm hover:shadow-md transition-shadow">
-          <div className="relative aspect-[4/3] w-full overflow-hidden">
+      <Card className="bg-white border-sketchy p-4 md:p-6 neo-shadow hover:neo-shadow-lg transition-all duration-300 relative group overflow-hidden">
+        {/* Sketchy Tape or Clip */}
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-6 bg-vrent-pink/20 border-x-2 border-black/10 z-10" />
+        
+        <CardContent className="p-0">
+          <div className="relative aspect-[4/3] w-full border-2 border-black overflow-hidden mb-6 group-hover:neo-shadow-pink transition-all">
             <Image
               src={vehicle.image}
               alt={vehicle.name}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-110"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover group-hover:scale-110 transition-transform duration-500"
             />
-            <div className="absolute top-4 right-4">
-              <Badge 
-                variant={vehicle.available ? 'default' : 'secondary'} 
-                className={`rounded-full px-4 h-7 text-xs font-semibold ${
-                  vehicle.available ? 'bg-white/90 text-[#0f172a] hover:bg-white' : 'bg-slate-900/50 text-white backdrop-blur-sm'
-                }`}
-              >
-                {vehicle.available ? 'Available' : 'Unavailable'}
-              </Badge>
-            </div>
+            {vehicle.available && (
+              <div className="absolute bottom-2 right-2 bg-white/90 border-2 border-black px-3 py-1 flex items-center gap-1.5 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5 text-vrent-yellow fill-vrent-yellow" />
+                <span className="text-[10px] font-black uppercase leading-none">Available</span>
+              </div>
+            )}
+            {!vehicle.available && (
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center pointer-events-none">
+                <div className="bg-black text-white px-6 py-2 transform -rotate-12 border-2 border-white font-hand text-2xl uppercase">
+                  Resting for now...
+                </div>
+              </div>
+            )}
           </div>
-          <CardContent className="p-6">
-            <p className="text-sm font-medium text-[#64748b] mb-1">{vehicle.type}</p>
-            <h3 className="text-xl font-bold text-[#0f172a] mb-2">{vehicle.name}</h3>
-            <div className="flex items-center justify-between mt-4">
-              <p className="text-2xl font-bold text-[#0f172a]">
-                ${vehicle.price} <span className="text-sm font-normal text-[#64748b]">/day</span>
-              </p>
+
+          <div className="space-y-4">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-hand text-3xl text-black leading-none mb-1 group-hover:text-vrent-pink transition-colors">
+                  {vehicle.name}
+                </h3>
+                <div className="flex items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
+                  <User className="w-3.5 h-3.5" />
+                  <span className="text-[10px] font-bold uppercase tracking-widest italic leading-none">
+                    Guarded by <span className="underline">The Campus Sage</span>
+                  </span>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="text-vrent-pink font-black text-2xl italic leading-none">
+                  ${vehicle.price}
+                </p>
+                <span className="text-[8px] font-black uppercase opacity-40 leading-none">
+                  PER MOON
+                </span>
+              </div>
             </div>
-          </CardContent>
-          <CardFooter className="px-6 py-4 border-t border-[#f1f5f9] bg-[#f8fafc]/50">
-            <span className="text-sm font-medium text-[#6366f1] group-hover:underline">
-              View Details →
-            </span>
-          </CardFooter>
-        </Card>
-      </Link>
+
+            <Button 
+              className={`
+                w-full h-12 border-2 border-black rounded-none font-bold uppercase tracking-widest transition-all neo-shadow hover:neo-shadow-none hover:translate-x-1 hover:translate-y-1
+                ${vehicle.available 
+                  ? 'bg-white text-black hover:bg-vrent-pink hover:text-white' 
+                  : 'bg-slate-100/50 text-slate-400 cursor-not-allowed opacity-50'
+                }
+              `}
+              disabled={!vehicle.available}
+            >
+              {vehicle.available ? (
+                <>Meet the Nomad <ArrowUpRight className="ml-2 w-4 h-4" /></>
+              ) : 'Sleeping...'}
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </motion.div>
   );
 };

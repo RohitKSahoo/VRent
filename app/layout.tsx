@@ -3,23 +3,24 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Navbar } from '@/components/layout/Navbar';
 import { BottomNav } from '@/components/layout/BottomNav';
+import { Footer } from '@/components/layout/Footer';
 import { PWAProvider } from '@/components/pwa/PWAProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'VRent - Premium Vehicle Rentals',
-  description: 'Find premium vehicles around you for your next adventure.',
+  title: 'VRent - Smart Campus Vehicle Rentals',
+  description: 'Find your trusty companion for campus adventures. Book instantly, no paperwork.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'VRent',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#FFD600',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -34,15 +35,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full bg-[#f8fafc] text-[#0f172a] antialiased`}>
+      <body className={`${inter.className} h-full bg-[#FFFCEB] text-black antialiased`}>
         <PWAProvider>
-          {/* Top navbar — visible on all screens, but mobile links hidden */}
           <Navbar />
-          {/* Page content — padded for top navbar + bottom nav on mobile */}
           <main className="min-h-screen pt-16 pb-20 md:pb-0">
             {children}
           </main>
-          {/* Bottom nav — mobile only */}
+          <Footer />
           <BottomNav />
         </PWAProvider>
       </body>

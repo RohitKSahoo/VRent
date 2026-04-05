@@ -1,31 +1,38 @@
 'use client';
 
 import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { useRouter } from 'next/navigation';
 import { useUIStore } from '@/store/useUIStore';
 
-export const SearchBar = () => {
+interface SearchBarProps {
+  dark?: boolean;
+}
+
+export const SearchBar = ({ dark = false }: SearchBarProps) => {
   const router = useRouter();
   const { searchQuery, setSearchQuery } = useUIStore();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/vehicles?query=${encodeURIComponent(searchQuery)}`);
-    }
+    router.push(`/vehicles${searchQuery.trim() ? `?query=${encodeURIComponent(searchQuery)}` : ''}`);
   };
 
   return (
     <form onSubmit={handleSearch} className="relative w-full max-w-2xl">
       <div className="relative">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#64748b]" />
-        <Input
+        <Search className={`absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 ${dark ? 'text-white/40' : 'text-[#7c7a8a]'}`} />
+        <input
           type="text"
           placeholder="Search for cars, bikes, vans..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full h-14 pl-12 pr-4 bg-white border-[#e5e7eb] rounded-2xl text-lg focus-visible:ring-[#6366f1] shadow-sm"
+          className={`
+            w-full h-13 pl-12 pr-4 rounded-2xl text-base outline-none transition-all
+            ${dark
+              ? 'bg-white/10 border border-white/15 text-white placeholder:text-white/40 focus:bg-white/15 focus:border-violet-500/60'
+              : 'bg-white border border-[#e8e4f0] text-[#0e0b1e] placeholder:text-[#7c7a8a] focus:border-violet-400 shadow-sm'
+            }
+          `}
         />
       </div>
     </form>

@@ -1,11 +1,13 @@
 'use client';
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { useUIStore } from '@/store/useUIStore';
 import { VehicleType } from '@/types';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Sparkles, DollarSign, Wand2 } from 'lucide-react';
 
 const VEHICLE_TYPES: VehicleType[] = ['Car', 'Bike', 'Van', 'Scooter'];
 
@@ -14,56 +16,67 @@ export const FiltersSidebar = () => {
     priceRange, 
     setPriceRange, 
     selectedType, 
-    setSelectedType, 
+    setSelectedType,
     resetFilters 
   } = useUIStore();
 
   return (
-    <div className="space-y-10 p-6 bg-white border border-[#e5e7eb] rounded-[2rem] sticky top-24 h-fit">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-bold text-[#0f172a]">Filters</h3>
-        <Button variant="ghost" size="sm" onClick={resetFilters} className="text-[#6366f1] h-8 px-2 hover:bg-indigo-50">
-          Reset all
-        </Button>
-      </div>
-
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <Label className="text-sm font-semibold text-[#0f172a]">Price per day <span className="text-[#6366f1]">(${priceRange[0]} - ${priceRange[1]})</span></Label>
-          <div className="pt-6 px-1">
-            <Slider
-              defaultValue={[0, 500]}
-              max={500}
-              step={10}
-              value={priceRange}
-              onValueChange={(value) => setPriceRange(value as [number, number])}
-              className="[&_[role=slider]]:h-5 [&_[role=slider]]:w-5 [&_[role=slider]]:border-2 [&_[role=slider]]:border-[#6366f1]"
-            />
+    <div className="flex flex-col gap-8">
+      {/* Sticky Note Filters */}
+      <Card className="bg-[#FFFCEB] border-sketchy p-4 md:p-6 neo-shadow rotate-[-1deg] transform transition-all hover:rotate-0">
+        <CardContent className="p-0">
+          <div className="flex items-center gap-2 mb-4">
+            <Wand2 className="w-5 h-5 text-vrent-pink" />
+            <h3 className="font-hand text-2xl text-black">What's your vibe?</h3>
           </div>
-        </div>
-
-        <div className="space-y-4">
-          <Label className="text-sm font-semibold text-[#0f172a]">Vehicle Type</Label>
-          <div className="grid grid-cols-1 gap-3">
+          <div className="space-y-3">
             {VEHICLE_TYPES.map((type) => (
-              <div key={type} className="flex items-center space-x-3 cursor-pointer group">
-                <Checkbox
-                  id={type}
-                  checked={selectedType === type}
-                  onCheckedChange={(checked) => setSelectedType(checked ? type : null)}
-                  className="rounded h-5 w-5 border-[#e5e7eb] data-[state=checked]:bg-[#6366f1]"
-                />
-                <Label
-                  htmlFor={type}
-                  className="text-sm font-medium text-[#64748b] group-hover:text-[#0f172a] transition-colors cursor-pointer"
-                >
-                  {type}
+              <div key={type} className="flex items-center space-x-3 group cursor-pointer" onClick={() => setSelectedType(selectedType === type ? null : type)}>
+                <div className={`w-5 h-5 border-2 border-black rounded-none flex items-center justify-center transition-all ${selectedType === type ? 'bg-vrent-pink' : 'bg-white'}`}>
+                  {selectedType === type && <div className="w-3 h-3 bg-white" />}
+                </div>
+                <Label className="text-sm font-bold uppercase tracking-widest cursor-pointer group-hover:text-vrent-pink transition-colors">
+                  {type === 'Car' ? 'Swift Scoots' : type === 'Bike' ? 'Magic Bikes' : type === 'Van' ? 'Campus Chariots' : 'Road Runners'}
                 </Label>
               </div>
             ))}
           </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
+
+      {/* Price Pocket */}
+      <Card className="bg-white border-2 border-black p-6 rounded-none neo-shadow relative">
+        {/* Sketchy Speech Bubble Tail */}
+        <div className="absolute -left-3 top-10 w-6 h-6 bg-white border-l-2 border-b-2 border-black rotate-45" />
+        
+        <CardContent className="p-0 space-y-6">
+          <div className="flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-vrent-yellow" />
+            <h3 className="font-bold text-lg uppercase tracking-tighter">Price Pockets</h3>
+          </div>
+          <Slider
+            min={0}
+            max={200}
+            step={5}
+            value={priceRange}
+            onValueChange={(val) => setPriceRange(val as [number, number])}
+            className="[&_[role=slider]]:bg-vrent-yellow [&_[role=slider]]:border-2 [&_[role=slider]]:border-black [&_[role=slider]]:rounded-none [&_[role=slider]]:neo-shadow"
+          />
+          <div className="flex justify-between text-[10px] font-black uppercase opacity-40">
+            <span>Pocket Change</span>
+            <span>Big Dreams</span>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Reset Sketchy Button */}
+      <Button 
+        variant="outline" 
+        onClick={resetFilters}
+        className="border-sketchy bg-[#F1F5F9] text-black h-12 font-hand text-xl hover:bg-vrent-pink hover:text-white transition-all transform hover:rotate-2"
+      >
+        Wander Free (Reset)
+      </Button>
     </div>
   );
 };
