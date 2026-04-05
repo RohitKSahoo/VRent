@@ -15,7 +15,10 @@ import {
   CreditCard,
   Target,
   Edit2,
-  Trash
+  Trash,
+  Settings,
+  Bell,
+  Globe
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -23,163 +26,135 @@ export default function VendorPage() {
   const vendorVehicles = mockVehicles.slice(0, 2); // Mocking as vendor's own vehicles
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 bg-[#FFFCEB] min-h-screen">
-      
-      {/* ── HEADER ── */}
-      <div className="flex flex-col md:flex-row items-center gap-10 mb-20">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="relative group"
-        >
-          <div className="w-48 h-48 bg-white border-sketchy neo-shadow p-2 rotate-[-3deg] transform transition-all group-hover:rotate-0">
-            <div className="relative aspect-square w-full h-full border-2 border-black overflow-hidden bg-slate-100 grayscale hover:grayscale-0 transition-all duration-500">
+    <div className="min-h-screen mesh-bg pt-20 px-4 md:px-8 pb-32">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* ── HEADER (Glass Section) ── */}
+        <div className="flex flex-col md:flex-row items-center gap-10 mb-20 bg-white/40 backdrop-blur-3xl p-10 md:p-14 rounded-[50px] shadow-2xl border border-white/60">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="relative group"
+          >
+            <div className="relative w-48 h-48 rounded-[38px] overflow-hidden shadow-2xl ring-8 ring-white/20 transition-all group-hover:ring-white/40 group-hover:scale-105 duration-700">
               <Image 
                 src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=400" 
                 alt="Alex the Creator" 
                 fill 
-                className="object-cover"
+                className="object-cover transition-transform duration-700"
               />
-            </div>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-vrent-pink text-white w-10 h-10 border-2 border-black rounded-full flex items-center justify-center neo-shadow">
-              <Edit2 className="w-5 h-5 leading-none" />
-            </div>
-          </div>
-          <div className="mt-8 text-center">
-            <h1 className="text-3xl font-black text-black leading-none mb-1">Alex the Creator</h1>
-            <p className="font-hand text-xl text-neutral-400 italic">Living the dream!</p>
-          </div>
-        </motion.div>
-
-        <div className="flex-1 space-y-6">
-          <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-black uppercase italic leading-none">
-            CREATOR <span className="text-vrent-pink">STUDIO.</span>
-          </h2>
-          <p className="font-hand text-2xl text-black leading-relaxed max-w-2xl">
-            This is your command center. Fix your deets, grab your cash, and keep the campus moving!
-          </p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-16">
-        {/* Left Column: Stats & Metadata */}
-        <div className="xl:col-span-2 space-y-20">
-          
-          {/* Who are ya? */}
-          <div className="space-y-10">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-vrent-yellow border-2 border-black rounded-full flex items-center justify-center neo-shadow">
-                <UserPlus className="w-6 h-6 text-black" />
-              </div>
-              <h3 className="text-4xl font-black uppercase tracking-tighter">Who are ya?</h3>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {[
-                { label: 'My Name', value: 'Alex Chen', color: 'bg-[#FFFCEB]' },
-                { label: 'Secret Email', value: 'alex.chen@campus.edu', color: 'bg-[#FF4DA6]/10' },
-                { label: 'Calling Code', value: '+1 (555) 012-3456', color: 'bg-[#FFFCEB]' },
-                { label: 'Main Base', value: 'North Hub', color: 'bg-[#FF4DA6]/10' },
-              ].map((stat, i) => (
-                <div key={i} className={`${stat.color} border-sketchy p-6 neo-shadow rotate-[${i%2 ? '1' : '-1'}deg] transform transition-all hover:rotate-0`}>
-                  <p className="font-hand text-xl text-[#7c7a8a] italic mb-1 underline decoration-dotted decoration-[#e5e7eb] underline-offset-4">{stat.label}</p>
-                  <p className="text-2xl font-black text-black leading-none italic">{stat.value}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* The Treasure Map */}
-          <div className="space-y-10">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-vrent-pink border-2 border-black rounded-full flex items-center justify-center neo-shadow">
-                <Map className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-4xl font-black uppercase tracking-tighter">The Treasure Map</h3>
-            </div>
-
-            <div className="space-y-6">
-              <Card className="bg-[#E2F0D9] border-sketchy p-10 neo-shadow relative rotate-[0.5deg]">
-                 <div className="absolute top-4 left-6 bg-black text-white px-3 py-1 text-[10px] font-bold uppercase tracking-widest italic">ACTIVE!</div>
-                 <div className="flex items-center justify-between mb-8">
-                    <h4 className="text-4xl font-bold tracking-tighter text-black/60 italic leading-none">•••• 4242</h4>
-                    <CreditCard className="w-10 h-10 text-black/20" />
-                 </div>
-                 <div className="flex justify-between items-end">
-                    <div>
-                       <p className="text-[10px] font-black uppercase opacity-40 leading-none mb-1">EXPIRES</p>
-                       <p className="text-xl font-black text-black italic">12 / 26</p>
-                    </div>
-                    <div className="w-12 h-8 bg-vrent-yellow border-2 border-black rounded-sm" />
-                 </div>
-              </Card>
-
-              <div className="bg-white border-sketchy border-dashed p-10 flex flex-col items-center justify-center gap-4 text-[#7c7a8a] hover:bg-vrent-pink/5 cursor-pointer transition-all neo-shadow rotate-[-0.5deg]">
-                <div className="w-16 h-16 bg-slate-50 border-2 border-[#e5e7eb] rounded-2xl flex items-center justify-center">
-                  <Plus className="w-8 h-8 text-neutral-300" />
-                </div>
-                <p className="font-hand text-2xl">Add New Loot!</p>
+              <div className="absolute top-3 right-3 bg-vrent-primary w-10 h-10 rounded-2xl flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-pointer border border-white/20">
+                <Edit2 className="w-5 h-5 text-white" />
               </div>
             </div>
-          </div>
-
-          {/* Main Studio Form */}
-          <VehicleForm />
-        </div>
-
-        {/* Right Column (Sidebar Extras) */}
-        <div className="space-y-16">
-          
-          {/* Share Section */}
-          <div className="bg-white border-sketchy p-8 neo-shadow-lg relative overflow-hidden flex flex-col gap-8 rotate-[-1deg]">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-vrent-yellow transform translate-x-12 -translate-y-12 rotate-45 border-2 border-black opacity-10" />
-            
-            <div className="space-y-4">
-               <Badge className="bg-vrent-pink text-white rounded-none border-2 border-black font-black uppercase italic tracking-tighter text-xs px-4 py-1.5 neo-shadow shadow-vrent-pink/20">
-                  STUDENT POWER
-               </Badge>
-               <h3 className="text-6xl font-black tracking-tighter leading-[0.85] italic text-black">
-                  Got <span className="text-vrent-yellow">Wheels?</span><br />
-                  <span className="text-vrent-pink">Share the Fun.</span>
-               </h3>
-               <p className="font-hand text-2xl text-black leading-relaxed italic border-l-4 border-vrent-yellow pl-4">
-                  "Yo Alex! Your car is just sitting there. Turn those wheels into weekend festival money. 500+ legends are already doing it!"
-               </p>
-            </div>
-            <Button className="h-20 bg-[#52FF00] text-black border-4 border-black rounded-none font-black text-2xl uppercase italic neo-shadow-lg hover:neo-shadow-none hover:translate-x-2 hover:translate-y-2 transition-all">
-               LET'S DO THIS! 🚀
-            </Button>
-          </div>
-
-          {/* Safe & Sound? */}
-          <div className="bg-[#E9EDF0] border-sketchy p-10 neo-shadow rotate-[1deg] flex flex-col gap-10">
-            <div className="flex items-center gap-3">
-              <ShieldCheck className="w-10 h-10 text-vrent-pink" />
-              <h3 className="text-4xl font-black uppercase tracking-tighter italic">Safe & Sound?</h3>
-            </div>
-            
-            <div className="space-y-8">
-              <div className="flex items-center justify-between border-b-2 border-black/10 pb-4">
-                <span className="font-hand text-2xl text-black italic">Identity Locked?</span>
-                <div className="w-8 h-8 bg-[#52FF00] border-2 border-black rounded-full flex items-center justify-center text-white neo-shadow shadow-[#52FF00]/20">
-                  ✓
-                </div>
+            <div className="mt-8 text-center md:text-left">
+              <h1 className="text-4xl font-bold text-foreground leading-tight tracking-tight">Alex Chen</h1>
+              <div className="flex items-center gap-2 text-vrent-primary mt-2 font-bold uppercase tracking-[0.25em] text-[10px]">
+                 <span className="w-2 h-2 rounded-full bg-vrent-primary animate-pulse" />
+                 Senior_Curator
               </div>
-              <div className="flex items-center justify-between border-b-2 border-black/10 pb-4">
-                <span className="font-hand text-2xl text-black italic">Two-Factor Shield</span>
-                <Badge className="bg-vrent-pink text-white border-2 border-black italic font-black uppercase p-2 rounded-none neo-shadow shadow-vrent-pink/20">NOPE!</Badge>
-              </div>
-              <Button className="w-full bg-black text-white border-2 border-black rounded-none h-14 font-black uppercase tracking-widest text-sm neo-shadow hover:neo-shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
-                FIX SECURITY SHIELD
-              </Button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Quote */}
-          <div className="bg-vrent-yellow/10 border-sketchy p-8 neo-shadow rotate-[-2deg] transform hover:rotate-0 transition-transform">
-            <p className="font-hand text-3xl text-black text-center italic">
-               "Adventure is just a ride away!"
+          <div className="flex-1 space-y-6">
+            <div className="flex items-center gap-3 text-vrent-primary/40 text-xs font-bold uppercase tracking-[0.4em]">
+               System_Dashboard_v3.2
+            </div>
+            <h2 className="text-6xl md:text-8xl font-bold tracking-tight text-foreground leading-[0.9]">
+              Creator <span className="opacity-20">Studio.</span>
+            </h2>
+            <p className="max-w-xl text-lg text-neutral-500 font-medium">
+               Welcome to your command center. Synchronize your parameters, manage your assets, and keep the campus hub moving.
             </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
+          {/* Main Dashboard Section */}
+          <div className="xl:col-span-2 space-y-16">
+            
+            {/* User_Credential Grid */}
+            <div className="space-y-10">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-vrent-primary/10 rounded-2xl flex items-center justify-center border border-vrent-primary/20">
+                  <UserPlus className="w-6 h-6 text-vrent-primary" />
+                </div>
+                <h3 className="text-3xl font-bold tracking-tight">User_Credential</h3>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                {[
+                  { label: 'Public Identity', value: 'Alex Chen', icon: Settings },
+                  { label: 'System Mail', value: 'alex.chen@campus.edu', icon: Bell },
+                  { label: 'Dial_Connect', value: '+1 (555) 012-3456', icon: Globe },
+                  { label: 'Primary Node', value: 'North Hub', icon: Map },
+                ].map((stat, i) => (
+                  <div key={i} className="bg-white/40 backdrop-blur-2xl border border-white/60 p-10 rounded-[40px] shadow-xl hover:bg-white/60 transition-all duration-500 group">
+                    <stat.icon className="w-5 h-5 text-vrent-primary mb-6 opacity-30 group-hover:opacity-100 transition-opacity" />
+                    <p className="text-[10px] font-bold uppercase tracking-widest opacity-30 mb-2">{stat.label}</p>
+                    <p className="text-2xl font-bold text-foreground tracking-tight italic">{stat.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* System Form Container */}
+            <div className="space-y-10">
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-vrent-primary/10 rounded-2xl flex items-center justify-center border border-vrent-primary/20">
+                     <Plus className="w-6 h-6 text-vrent-primary" />
+                  </div>
+                  <h3 className="text-3xl font-bold tracking-tight">Deploy_Asset</h3>
+               </div>
+               <VehicleForm />
+            </div>
+          </div>
+
+          {/* Sidebar Modules */}
+          <div className="space-y-12">
+            
+            {/* Wallet System (Glass Card) */}
+            <div className="space-y-8 bg-white/60 backdrop-blur-3xl border border-white/80 p-10 rounded-[44px] shadow-2xl relative overflow-hidden group">
+               <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-vrent-primary/5 blur-[80px] group-hover:bg-vrent-primary/10 transition-all duration-1000" />
+               <div className="flex items-center gap-4 opacity-40 mb-4">
+                  <CreditCard className="w-6 h-6" />
+                  <h3 className="text-xs font-bold uppercase tracking-[0.3em]">Asset_Wallet</h3>
+               </div>
+               
+               <div className="space-y-6">
+                  <div className="bg-vrent-primary/5 border border-vrent-primary/10 p-10 rounded-[40px] shadow-inner relative overflow-hidden">
+                     <Badge className="bg-vrent-primary text-white rounded-full px-6 py-2 border-0 shadow-lg text-[10px] uppercase font-bold tracking-widest absolute top-6 right-6">ACTIVE</Badge>
+                     <p className="text-4xl font-bold tracking-tight text-vrent-primary mt-12 mb-2">•••• 4242</p>
+                     <p className="text-[10px] font-bold opacity-30 tracking-[0.3em] uppercase">Auth: 12/26</p>
+                  </div>
+                  <Button className="w-full bg-vrent-primary text-white h-16 rounded-[28px] font-bold shadow-xl shadow-vrent-primary/20 hover:scale-105 hover:bg-vrent-primary/90 transition-all">
+                    Link New Gateway
+                  </Button>
+               </div>
+            </div>
+
+            {/* Security Interface */}
+            <div className="space-y-10 bg-vrent-primary/5 backdrop-blur-2xl border border-vrent-primary/10 p-12 rounded-[44px] shadow-2xl">
+              <div className="flex items-center gap-4">
+                <ShieldCheck className="w-8 h-8 text-vrent-primary" />
+                <h3 className="text-2xl font-bold tracking-tight">Security_Layer</h3>
+              </div>
+              
+              <div className="space-y-8 pt-4">
+                <div className="flex items-center justify-between border-b border-black/5 pb-4">
+                  <span className="text-sm font-bold opacity-40 uppercase tracking-widest italic">Identity_Lock</span>
+                  <div className="w-6 h-6 rounded-full bg-emerald-500 shadow-lg border-2 border-white" />
+                </div>
+                <div className="flex items-center justify-between border-b border-black/5 pb-4">
+                  <span className="text-sm font-bold opacity-40 uppercase tracking-widest italic">Shield_Enc_v2</span>
+                  <Badge className="bg-rose-500 text-white border-0 shadow-lg px-4 py-1.5 rounded-full text-[9px] font-bold uppercase">Disabled</Badge>
+                </div>
+                <Button className="w-full bg-white/40 text-vrent-primary backdrop-blur-md rounded-2xl h-14 font-bold uppercase tracking-widest text-[10px] border border-white shadow-xl hover:scale-105 transition-all">
+                  INITIALIZE SHIELD
+                </Button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

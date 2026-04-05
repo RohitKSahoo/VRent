@@ -10,8 +10,9 @@ import {
   SlidersHorizontal, 
   PackageOpen, 
   Sparkles,
-  Search,
-  Wand2
+  ArrowRight,
+  Zap,
+  Globe
 } from 'lucide-react';
 import {
   Sheet,
@@ -39,109 +40,117 @@ export default function VehiclesPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 md:px-8 py-20 min-h-screen">
-      {/* ── HEADER ── */}
-      <div className="mb-12 space-y-6">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-2"
-        >
-          <div className="flex items-center gap-2 text-vrent-pink">
-            <Sparkles className="w-5 h-5" />
-            <span className="text-xs font-black uppercase tracking-widest leading-none">Find a trusty companion...</span>
-          </div>
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-black uppercase italic leading-none">
-            Available Nomads<span className="text-vrent-yellow">.</span>
-          </h1>
-        </motion.div>
-
-        <div className="flex flex-col md:flex-row gap-6 items-center">
-          <div className="flex-1 w-full relative">
-            <SearchBar />
-            {/* Sketchy Annotation */}
-            <div className="hidden lg:block absolute -right-48 top-1/2 -translate-y-1/2 -rotate-6 pointer-events-none">
-              <p className="font-hand text-2xl text-vrent-pink whitespace-nowrap">
-                Find your ride! ⮕
-              </p>
+    <div className="min-h-screen mesh-bg pt-20 px-4 md:px-8 pb-32">
+      <div className="max-w-7xl mx-auto">
+        
+        {/* ── HEADER ── */}
+        <div className="mb-16 space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex flex-col gap-3"
+          >
+            <div className="flex items-center gap-2 text-vrent-primary px-3 py-1 bg-white/40 backdrop-blur-md rounded-full w-fit border border-white/60 shadow-sm">
+              <Sparkles className="w-4 h-4 fill-vrent-primary/20" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] leading-none opacity-60">Discovery Portal</span>
             </div>
-          </div>
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground flex flex-wrap gap-x-4 leading-tight">
+               Refined <span className="text-vrent-primary opacity-40">Nomads.</span>
+            </h1>
+          </motion.div>
 
-          <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="outline"
-                  className="md:hidden w-full h-14 border-sketchy bg-white neo-shadow font-bold uppercase flex items-center gap-2"
-                >
-                  <SlidersHorizontal className="w-5 h-5" />
-                  Filter the Vibe
-                </Button>
-              }
-            />
-            <SheetContent side="bottom" className="h-[85vh] rounded-t-[3rem] p-0 overflow-hidden border-t-8 border-black">
-              <SheetHeader className="p-8 border-b-4 border-black bg-vrent-yellow">
-                <SheetTitle className="text-3xl font-black uppercase tracking-tighter">Filter the Vibe</SheetTitle>
-              </SheetHeader>
-              <div className="p-8 overflow-y-auto h-full pb-40 bg-[#FFFCEB]">
-                <FiltersSidebar />
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
+          <div className="flex flex-col md:flex-row gap-6 items-center">
+            <div className="flex-1 w-full glass p-2 rounded-3xl shadow-lg border-white/60">
+              <SearchBar />
+            </div>
 
-      <div className="flex gap-12">
-        {/* Sidebar */}
-        <aside className="hidden md:block w-80 shrink-0 h-fit sticky top-28">
-          <FiltersSidebar />
-        </aside>
-
-        {/* Main Content */}
-        <div className="flex-1">
-          <AnimatePresence mode="popLayout">
-            {filteredVehicles.length > 0 ? (
-              <motion.div
-                layout
-                className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10"
-              >
-                {filteredVehicles.map((vehicle) => (
-                  <motion.div
-                    key={vehicle.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.4 }}
+            <Sheet open={isMobileFilterOpen} onOpenChange={setIsMobileFilterOpen}>
+              <SheetTrigger
+                render={
+                  <Button
+                    variant="outline"
+                    className="md:hidden w-full h-14 bg-white/60 backdrop-blur-xl border border-white/80 rounded-2xl font-bold uppercase tracking-widest text-xs flex items-center gap-2 shadow-lg"
                   >
-                    <VehicleCard vehicle={vehicle} />
-                  </motion.div>
-                ))}
-              </motion.div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex flex-col items-center justify-center py-32 text-center"
-              >
-                <div className="w-24 h-24 bg-white border-sketchy flex items-center justify-center neo-shadow text-slate-300 mb-8 rotate-3">
-                  <PackageOpen className="w-12 h-12" />
+                    <SlidersHorizontal className="w-5 h-5 opacity-40" />
+                    Filter Vibes
+                  </Button>
+                }
+              />
+              <SheetContent side="bottom" className="h-[85vh] rounded-t-[3rem] p-0 overflow-hidden border-t border-white/60 glass-card">
+                <SheetHeader className="p-8 border-b border-black/5 bg-vrent-primary/5">
+                  <SheetTitle className="text-3xl font-bold tracking-tight">System Filter</SheetTitle>
+                </SheetHeader>
+                <div className="p-8 overflow-y-auto h-full pb-40">
+                  <FiltersSidebar />
                 </div>
-                <h3 className="text-4xl font-black uppercase tracking-tighter text-black mb-3 italic">
-                  No Nomads today?
-                </h3>
-                <p className="font-hand text-2xl text-[#7c7a8a] max-w-sm">
-                  Try shaking up your vibes or resetting the treasure map!
-                </p>
-                <Button
-                  variant="link"
-                  className="mt-6 text-2xl font-hand text-vrent-pink underline decoration-2 underline-offset-4 hover:text-black transition-colors"
-                  onClick={() => useUIStore.getState().resetFilters()}
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+
+        <div className="flex gap-12">
+          {/* Sidebar */}
+          <aside className="hidden md:block w-80 shrink-0 h-fit sticky top-28 bg-white/40 backdrop-blur-2xl rounded-[32px] p-8 border border-white/60 shadow-xl">
+             <div className="space-y-10">
+                <div className="flex items-center gap-3">
+                   <div className="w-10 h-10 bg-vrent-primary/10 rounded-xl flex items-center justify-center border border-vrent-primary/20">
+                      <Zap className="w-5 h-5 text-vrent-primary" />
+                   </div>
+                   <div>
+                      <h4 className="text-sm font-bold uppercase tracking-widest opacity-80 mb-0.5">Parameters</h4>
+                      <p className="text-[10px] uppercase font-bold opacity-30 select-none">Tuning v3.2</p>
+                   </div>
+                </div>
+                <FiltersSidebar />
+             </div>
+          </aside>
+
+          {/* Main Content */}
+          <div className="flex-1">
+            <AnimatePresence mode="popLayout">
+              {filteredVehicles.length > 0 ? (
+                <motion.div
+                  layout
+                  className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-8"
                 >
-                  Clear the Path!
-                </Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  {filteredVehicles.map((vehicle) => (
+                    <motion.div
+                      key={vehicle.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      <VehicleCard vehicle={vehicle} />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex flex-col items-center justify-center py-32 text-center"
+                >
+                  <div className="w-24 h-24 bg-white/40 backdrop-blur-xl border border-white/60 rounded-3xl flex items-center justify-center shadow-xl text-neutral-300 mb-8">
+                    <PackageOpen className="w-12 h-12" />
+                  </div>
+                  <h3 className="text-3xl font-bold tracking-tight text-neutral-800 mb-3">
+                    No Nomads Signal
+                  </h3>
+                  <p className="text-neutral-500 font-medium max-w-sm px-6">
+                    Try adjusting your system parameters or resetting the discovery portal.
+                  </p>
+                  <Button
+                    variant="link"
+                    className="mt-8 text-vrent-primary font-bold text-lg hover:no-underline hover:scale-105 transition-transform flex items-center gap-2"
+                    onClick={() => useUIStore.getState().resetFilters()}
+                  >
+                    Reset Portal <ArrowRight className="w-4 h-4" />
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </div>

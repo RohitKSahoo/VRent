@@ -1,5 +1,4 @@
-/* VRent Branding Fonts - MUST BE TOPMOST */
-@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -10,101 +9,113 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: 'Space Mono', monospace;
-  --font-hand: 'Gochi Hand', cursive;
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-vrent: var(--radius);
+
+  --font-sans: 'Plus Jakarta Sans', var(--font-sans);
+  --font-display: 'Outfit', sans-serif;
   
-  --color-vrent-yellow: #FFD600;
-  --color-vrent-pink: #FF4DA6;
-  --color-vrent-cream: #FFFCEB;
+  --color-vrent-primary: #007AFF;
+  --color-vrent-accent: #5856D6;
+  --color-vrent-surface: rgba(255, 255, 255, 0.7);
   
-  --radius-sketchy: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --radius-apple: 24px;
 }
 
 :root {
-  --background: #FFFCEB;
-  --foreground: #000000;
+  --background: #F2F2F7; /* Apple System Gray 6 */
+  --foreground: #1C1C1E;
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #1C1C1E;
   --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
+  --popover-foreground: #1C1C1E;
+  --primary: #007AFF;
   --primary-foreground: #ffffff;
-  --secondary: #F3F4F6;
-  --secondary-foreground: #000000;
-  --muted: #F3F4F6;
-  --muted-foreground: #6B7280;
-  --accent: #FFD600;
-  --accent-foreground: #000000;
-  --destructive: #EF4444;
+  --secondary: #E5E5EA;
+  --secondary-foreground: #1C1C1E;
+  --muted: #8E8E93;
+  --muted-foreground: #3A3A3C;
+  --accent: #F2F2F7;
+  --accent-foreground: #007AFF;
+  --destructive: #FF3B30;
   --destructive-foreground: #ffffff;
-  --border: #000000;
-  --input: #e5e7eb;
-  --ring: #000000;
-  --radius: 0px;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.05);
+  --ring: #007AFF;
+  --radius: 20px;
 }
 
 @layer base {
   * {
-    @apply border-black;
-    -webkit-tap-highlight-color: transparent;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
-    background-image: 
-      radial-gradient(#e5e7eb 1px, transparent 1px);
-    background-size: 24px 24px;
-    overscroll-behavior: none;
-  }
-  html {
-    @apply font-sans;
-    height: 100%;
-    height: -webkit-fill-available;
+    font-feature-settings: "cv11", "ss01";
+    background: linear-gradient(135deg, #F2F2F7 0%, #FFFFFF 100%);
+    min-height: 100vh;
   }
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold tracking-tight lowercase;
+    @apply font-display font-semibold tracking-tight;
   }
 }
 
 @layer utilities {
-  .pb-safe {
-    padding-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  .pt-safe {
-    padding-top: env(safe-area-inset-top, 0px);
-  }
-  .mb-safe {
-    margin-bottom: env(safe-area-inset-bottom, 0px);
+  .glass {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
   }
   
-  /* VRent Sketchy Border */
-  .border-sketchy {
-    border: 3px solid black;
-    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  .glass-dark {
+    background: rgba(28, 28, 30, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .apple-shadow {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
   }
   
-  /* Neo-brutalist Shadow */
-  .neo-shadow {
-    box-shadow: 4px 4px 0px 0px #000000;
+  .apple-shadow-lg {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
   }
-  .neo-shadow-lg {
-    box-shadow: 8px 8px 0px 0px #000000;
+
+  .mesh-bg {
+    background-color: #F2F2F7;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(0, 122, 255, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(88, 86, 214, 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, rgba(255, 45, 85, 0.1) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, rgba(255, 159, 10, 0.1) 0px, transparent 50%);
   }
-  .neo-shadow-pink {
-    box-shadow: 6px 6px 0px 0px #FF4DA6;
-  }
-  .neo-shadow-yellow {
-    box-shadow: 6px 6px 0px 0px #FFD600;
-  }
-  
-  .font-hand {
-    font-family: 'Gochi Hand', cursive;
-  }
-  .font-mono {
-    font-family: 'Space Mono', monospace;
-  }
-  
-  .vrent-gradient {
-    background: linear-gradient(135deg, #FFD600 0%, #FF4DA6 100%);
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-[#007AFF] to-[#5856D6];
   }
 }

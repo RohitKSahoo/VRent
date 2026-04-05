@@ -4,85 +4,75 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { Sparkles, ArrowUpRight, Zap, Move, Star } from 'lucide-react';
+import { Sparkles, ArrowRight, Zap, Move, Star, Globe, ShieldCheck } from 'lucide-react';
 
 export default function LandingPage() {
   return (
-    <div className="flex flex-col pt-18 min-h-[calc(100vh-theme(spacing.16))] bg-vrent-cream relative overflow-hidden">
+    <div className="flex flex-col pt-16 min-h-[calc(100vh-theme(spacing.16))] mesh-bg relative overflow-hidden font-sans">
       
-      {/* ── FLOATERS ── */}
+      {/* ── FLOATERS (Apple Style Soft Orbs) ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div 
-          animate={{ rotate: [0, 10, -10, 0], y: [0, -20, 0] }}
-          transition={{ duration: 6, repeat: Infinity }}
-          className="absolute top-[10%] left-[10%] opacity-20"
-        >
-          <Zap className="w-16 h-16 text-vrent-pink" />
-        </motion.div>
+          animate={{ scale: [1, 1.2, 1], x: [0, 50, 0], y: [0, -30, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+          className="absolute top-[10%] left-[10%] w-[400px] h-[400px] bg-vrent-primary/10 blur-[100px] rounded-full"
+        />
         <motion.div 
-          animate={{ rotate: [0, -15, 15, 0], x: [0, 30, 0] }}
-          transition={{ duration: 8, repeat: Infinity }}
-          className="absolute bottom-[20%] right-[15%] opacity-20"
-        >
-          <Move className="w-20 h-20 text-vrent-yellow" />
-        </motion.div>
-        <div className="absolute top-[40%] right-[5%] opacity-10">
-          <Star className="w-32 h-32 text-black fill-black" />
-        </div>
+          animate={{ scale: [1, 1.3, 1], x: [0, -50, 0], y: [0, 40, 0] }}
+          transition={{ duration: 12, repeat: Infinity }}
+          className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-vrent-accent/10 blur-[120px] rounded-full"
+        />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-6">
         
-        {/* ── MAIN BLOCK ── */}
+        {/* ── CARD PROTOCOL (Glass Morphism) ── */}
         <motion.div 
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="w-full max-w-4xl relative"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="w-full max-w-4xl"
         >
-          {/* Sketchy Tape */}
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-32 h-10 bg-vrent-pink/40 border-x-2 border-black/20 z-20 group-hover:bg-vrent-pink/60 transition-colors" />
-
-          <div className="bg-black text-white border-4 border-black p-12 md:p-20 neo-shadow-lg relative overflow-hidden rotate-[-1deg]">
+          <div className="glass-card rounded-[40px] p-10 md:p-24 relative overflow-hidden group">
             
-            {/* Background Texture */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
-              <Image 
-                src="https://images.unsplash.com/photo-1599819811279-d5ad9cccf838?auto=format&fit=crop&q=80&w=1200" 
-                alt="Texture" 
-                fill 
-                className="object-cover"
-              />
-            </div>
+            {/* Gloss Highlight */}
+            <div className="absolute inset-0 bg-linear-to-tr from-white/20 to-transparent pointer-events-none" />
 
             <div className="relative flex flex-col items-center text-center gap-12">
-              <div className="space-y-2">
-                <div className="flex items-center justify-center gap-2 text-vrent-yellow">
-                  <Sparkles className="w-5 h-5 fill-vrent-yellow" />
-                  <span className="text-xs font-black uppercase tracking-[0.3em]">The Campus Protocol</span>
-                </div>
-                <h1 className="text-7xl md:text-[10rem] font-black italic tracking-tighter leading-[0.8] uppercase flex flex-col">
-                  READY TO <span className="text-vrent-yellow">ACT?</span>
+              <div className="space-y-4">
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center justify-center gap-2 text-vrent-primary"
+                >
+                  <Sparkles className="w-5 h-5 fill-vrent-primary/20" />
+                  <span className="text-sm font-bold tracking-[0.4em] text-vrent-primary/60 uppercase">Protocol: v-rent 3.2</span>
+                </motion.div>
+                <h1 className="text-6xl md:text-[8rem] font-bold tracking-tight leading-[0.9] text-foreground flex flex-col">
+                  Move with <span className="text-gradient">Fluidity.</span>
                 </h1>
+                <p className="max-w-md mx-auto text-lg text-muted-foreground font-medium opacity-60">
+                   The next-gen campus mobility protocol. Experience speed and design in perfect harmony.
+                </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-8 w-full max-w-lg">
+              <div className="flex flex-col sm:flex-row gap-6 w-full max-w-xl">
                 <Link href="/vehicles" className="flex-1">
-                  <Button className="w-full h-20 bg-vrent-yellow text-black border-4 border-black rounded-none font-black text-2xl uppercase italic neo-shadow-lg hover:neo-shadow-none hover:translate-x-2 hover:translate-y-2 transition-all">
-                    START_BROWSING <ArrowUpRight className="ml-2 w-6 h-6" />
+                  <Button className="w-full h-18 bg-vrent-primary text-white rounded-3xl font-bold text-xl shadow-2xl shadow-vrent-primary/30 hover:scale-[1.02] hover:shadow-vrent-primary/40 transition-all duration-300">
+                    START_BROWSING <ArrowRight className="ml-2 w-6 h-6" />
                   </Button>
                 </Link>
                 <Link href="/vendor" className="flex-1">
-                  <Button className="w-full h-20 bg-white text-black border-4 border-black rounded-none font-black text-2xl uppercase italic neo-shadow-lg hover:neo-shadow-none hover:translate-x-2 hover:translate-y-2 transition-all">
+                  <Button className="w-full h-18 bg-white/40 backdrop-blur-md text-vrent-primary border border-white/60 rounded-3xl font-bold text-xl shadow-lg hover:bg-white/60 transition-all duration-300">
                     LIST_VEHICLE
                   </Button>
                 </Link>
               </div>
 
-              {/* Hand-drawn annotation */}
-              <div className="absolute -bottom-12 -right-4 md:-right-16 hidden lg:block rotate-12">
-                <p className="font-hand text-3xl text-vrent-pink whitespace-nowrap">
-                  500+ legends already joined! ⮕
-                </p>
+              {/* Status Pills */}
+              <div className="flex flex-wrap items-center justify-center gap-4 pt-6 opacity-40">
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest"><Globe className="w-3.5 h-3.5" /> Campus Hub</div>
+                <div className="w-1 h-1 bg-black/20 rounded-full" />
+                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest"><ShieldCheck className="w-3.5 h-3.5" /> 100% Encrypted</div>
               </div>
             </div>
           </div>
@@ -90,16 +80,18 @@ export default function LandingPage() {
 
       </div>
 
-      {/* ── TICKER ── */}
-      <div className="absolute bottom-0 w-full bg-vrent-yellow border-t-4 border-black py-2 overflow-hidden flex whitespace-nowrap">
+      {/* ── FOOTER SYSTEM (Mini Ticker Glass) ── */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
         <motion.div 
-          animate={{ x: [0, -1000] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="flex gap-12 text-sm font-black uppercase tracking-widest text-black/40"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          className="bg-white/30 backdrop-blur-lg border border-white/40 px-8 py-3 rounded-full flex gap-10 whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.2em] shadow-xl"
         >
-          {Array(10).fill('VRent V3.1 // Kinetic Curator Studio // Move Now // No Paperwork // 100% Student Power').map((text, i) => (
-            <span key={i}>{text}</span>
-          ))}
+          <span>Kinetic Protocol</span>
+          <span>//</span>
+          <span>Zero Paperwork</span>
+          <span>//</span>
+          <span>Design Excellence</span>
         </motion.div>
       </div>
 
